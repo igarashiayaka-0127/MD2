@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <title>CSV 3D Visualization</title>
+</head>
+
+<body>
+    <input type="file" id="csvFile" accept=".csv">
+    <button id = "myButton">Click Me!</button>
+</body>
+
+</html>
+<script>
+    // 関数を定義
+    function sayGoodbye() {
+        console.log("こんばんは！");
+    }
+    // 関数を呼び出す
+    sayGoodbye();  // "こんにちは！"と表示される
+
+
+
+    // nameという引数を受け取る関数
+    function greet(name) {
+        console.log("こんにちは、" + name + "さん！");
+    }
+    // 関数を呼び出す
+    greet("太郎");  // "こんにちは、太郎さん！"と表示
+    greet("花子");  // "こんにちは、花子さん！"と表示
+
+
+
+    // 2つの数を足して結果を返す関数
+    function add(a,b) {
+        return a + b;
+    }
+    const result = add(3,5);
+    console.log(result);
+
+
+
+    // 無名関数を変数に代入
+    const multiply = function(x, y) {
+        return x * y;
+    };
+
+    // 使い方は同じ
+    console.log(multiply(4, 5));  // 20と表示
+
+
+
+
+    // ファイルを読み込む関数
+    function readFile(file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const text = e.target.result;
+            displayContent(text);  // 別の関数を呼ぶ(関数で関数を呼べる)
+        };
+
+        reader.readAsText(file);
+    }
+
+    // 内容を表示する関数
+    function displayContent(text) {
+        console.log("ファイルの内容:", text);
+    }
+
+    // ファイル選択時の処理を関数化
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+
+        if (file) {
+            readFile(file);  // ファイル読み込み関数を呼ぶ
+        }
+    }
+
+    // イベントリスナーに関数を登録
+    document.getElementById('csvFile').addEventListener('change', handleFileSelect);
+    // handleFileSelect上の関数を実行
+    // change→クリック
+
+    // 1.documentつまり、bodyタグに囲まれた中からcsvfileというidを持つ要素を探す
+    // 2.その要素が変更されたら(change)= csvfileボタンが押され、csvファイルが選択されたら
+    // 3.handleFileSelect関数が実行される
+    // 4.readFileが実行される
+    // 5.displayContent関数が実行される
+    // 例: ボタンがクリックされたときの処理
+        
+    const button = document.getElementById('myButton');
+    button.addEventListener('click', function() {
+        console.log('ボタンがクリックされました！');
+    });
+
+    // 1. ハンドラ関数を定義
+    function handleFileChange(event) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        console.log('ファイル名:', file.name);
+        console.log('ファイルサイズ:', file.size, 'バイト');
+        console.log('ファイルタイプ:', file.type);
+
+    }
+
+    // 2. 要素を取得
+    const fileInput = document.getElementById('csvFile');
+
+    // 3. イベントリスナーを追加
+    fileInput.addEventListener('change', handleFileChange);
+
+    
+    
+
+</script>

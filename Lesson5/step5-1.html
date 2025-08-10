@@ -1,0 +1,30 @@
+<!--コメントcommand + / でコメント  -->
+<!--!DOCTYPE htmlはHTML5文書であることを宣言する  -->
+<!-- <html>要素は文書のルート要素=<body>要素を含む最上位の要素である -->
+<!-- 開始タグと終了タグ -->
+<!DOCTYPE html>
+<html>
+<!-- <head>Webページに設定情報 -->
+<head>
+    <!-- <script>JavaScriptのコードを記述するための要素 -->
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+
+</head>
+<!-- bodyはWebページの本体を表す要素 -->
+<body>
+    <!-- <a-scene> 3D空間、１つしか書けない -->
+    <a-scene>
+        <!-- a-boxは立方体を表す要素 -->
+        <!-- positionは属性で位置を指定 -->
+        <!-- 0,3,3はx,y,z座標 -->
+        <!-- xは左右、yは上下、zは奥行き -->
+        <a-box position="0 3 -3" color="red"></a-box>
+        <!-- #ECECEC　RGBカラーコード -->
+        <!-- 2文字ごとに区切ってそれぞれ赤、緑、青 -->
+        <!-- 00〜FFの範囲で指定 -->
+        <a-box position="0 1 -3" color="#FF00AA"></a-box>
+        <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+</body>
+</html>
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Shibuya 3D Map</title>
+</head>
+
+<body>
+    <a-scene>
+        <a-sky src="sky.jpg" radius="5000" color="#ADD8E6"></a-sky> 
+        <script>
+            AFRAME.registerComponent('click-logger', {
+                init: function () {
+                    this.el.addEventListener('click', function (evt) {
+                        const position = this.object3D.position; // クリックされたエンティティのワールド座標
+                        console.log('クリックされたオブジェクトのワールド座標:',
+                                    'x:', position.x,
+                                    'y:', position.y,
+                                    'z:', position.z);
+                    });
+                }
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const scene = document.querySelector('a-scene');
+
+                // ここに、各GLBモデルの「フォルダ名」を記述します。
+                // 拡張子(.glb)は付けません。
+                const models = [
+                    '533935_dem_6697_op',
+                    '533935_lsld_6697_op',
+                    '533935_luse_6697_op',
+                    '533935_urf_6697_08_op',
+                    '533945_dem_6697_op',
+                    '533945_lsld_6697_op',
+                    '533945_luse_6697_op',
+                    '533945_urf_6697_08_op',
+                    '53393585_bldg_6697_op',
+                    '53393585_brid_6697_op',
+                    '53393585_fld_6697_l1_op',
+                    '53393585_fld_6697_l2_op',
+                    '53393585_tran_6697_op',
+                    '53393586_bldg_6697_op',
+                    '53393586_brid_6697_op',
+                    '53393586_fld_6697_l1_op',
+                    '53393586_fld_6697_l2_op',
+                    '53393586_frn_6697_op',
+                    '53393586_tran_6697_op',
+                    '53393595_bldg_6697_op',
+                    '53393595_brid_6697_op',
+                    '53393595_fld_6697_l2_op',
+                    '53393595_tran_6697_op',
+                    '53393596_bldg_6697_op',
+                    '53393596_brid_6697_op',
+                    '53393596_fld_6697_l2_op',
+                    '53393596_frn_6697_op',
+                    '53393596_tran_6697_op',
+                    '53393596_ubld_6697_op',
+                    '53393596_veg_6697_op',
+                    '53394505_bldg_6697_op',
+                    '53394505_fld_6697_l2_op',
+                    '53394505_tran_6697_op',
+                    '53394506_bldg_6697_op',
+                    '53394506_fld_6697_l2_op',
+                    '53394506_tran_6697_op'      
+                ];
+
+                // モデルの配置間隔を調整（全部重ならないように）
+                // const startX = -100; 
+                // const startZ = -100; 
+                // const xOffset = 50; 
+                // const zOffset = 50; 
+                // const modelsPerRow = 5; 
+
+                models.forEach((modelFolderName, index) => { 
+                    const entity = document.createElement('a-entity');
+                    // ★ここを元の `./${modelFolderName}/${modelFolderName}.glb` に戻します。
+                    // HTMLファイルとGLBモデルのフォルダが同じ階層にあるため、このパスでOKです。
+                    entity.setAttribute('gltf-model', `./${modelFolderName}/${modelFolderName}.glb`); 
+                    
+                    // const row = Math.floor(index / modelsPerRow);
+                    // const col = index % modelsPerRow;
+                    // const x = startX + col * xOffset;
+                    // const z = startZ + row * zOffset; 
+                    entity.setAttribute('position', '0 0 0'); 
+                    entity.setAttribute('scale', '0.05 0.05 0.05'); // スケールを調整
+                    // entity.setAttribute('position', `${x} 0 ${z}`); 
+                    
+                    entity.setAttribute('rotation', '0 0 0'); 
+
+                    scene.appendChild(entity);
+                });
+            });
+        </script>
+        
+        <a-entity light="type: ambient; color: #BBB; intensity: 0.8"></a-entity>
+        <a-entity light="type: directional; color: #FFF; intensity: 0.6" position="1 1 1"></a-entity>
+
+        <a-entity camera look-controls wasd-controls="acceleration: 2000; fly: true;"
+            position="1100 200 -1300"> <a-cursor></a-cursor>
+        </a-entity>
+        
+        <!-- 渋谷109前 昼間の人の多さを高さに設定-->
+        <a-cylinder position="607 0 -1888" radius="0.5" height="90" color="#FF4500"></a-cylinder>
+        <!-- 宮下パーク入り口 -->
+        <a-cylinder position="590 0 -1887" radius="0.5" height="60" color="#FFA500"></a-cylinder>
+        <!-- 道玄坂 -->
+        <a-cylinder position="616 0 -1901" radius="0.5" height="40" color="#FFD700"></a-cylinder>
+    </a-scene>
+</body>
+
+</html>

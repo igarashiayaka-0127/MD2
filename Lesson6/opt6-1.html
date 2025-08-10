@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Ariake</title>
+</head>
+
+<body>
+    <!-- 霧がかった空 -->
+    <a-scene>
+        <!-- 空と地面 -->
+        <a-sky src="sky.jpg" radius="5000"></a-sky>
+
+        <!-- 地面として map.png を設定 -->
+
+        <!-- 同じディレクトリの中にある、ディレクトリ名がopで終わるディレクトリの中にある .gltfファイルをすべて読み込む。位置をずらしながら -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const scene = document.querySelector('a-scene');
+                const models = [
+                    '53393652_bldg_6697_op',
+                    '53393652_brid_6697_op',
+                    '53393653_bldg_6697_op',
+                    '53393653_brid_6697_op',
+                    '53393663_bldg_6697_op',
+                    '53393663_brid_6697_op',
+                    '533936_dem_6697_op',
+                ];
+
+                // グリッド配置（4x3）
+                const cols = 4;
+                const spacing = 0; // モデル間の間隔
+
+                models.forEach((model, index) => {
+                    const entity = document.createElement('a-entity');
+                    entity.setAttribute('gltf-model', `${model}/${model}.gltf`);
+
+                    // グリッド状に配置
+                    const row = Math.floor(index / cols);
+                    const col = index % cols;
+                    const x = (col - cols / 2 + 0.5) * spacing;
+                    const z = (row - 1) * spacing;
+
+                    entity.setAttribute('position', `${x} 0 ${z}`);
+                    entity.setAttribute('rotation', '0 180 0');
+                    entity.setAttribute('scale', '2 2 2');
+                    scene.appendChild(entity);
+                });
+            });
+        </script>
+        <!-- 1週間に使う頻度を表示、数の多さで色分け -->
+        <!-- 1号館 -->
+        <a-cylinder position=" -200 0 -230" radius="5" height="200" color="#FF8C00"></a-cylinder>
+        <!-- 3号館 -->
+        <a-cylinder position=" -150 0 -140" radius="5" height="200" color="#FF8C00"></a-cylinder>
+        <!-- 5号館 -->
+        <a-cylinder position="90 0 -200" radius="5" height="300" color="#DC143C"></a-cylinder>
+        <!-- 国際展示場駅 -->
+        <a-cylinder position="800 0 -920" radius="5" height="300" color="#DC143C"></a-cylinder>
+        
+
+        <a-entity camera look-controls wasd-controls="acceleration: 2000; fly: true; flySpeed: 1000;"
+            position="0 500 0">
+            <a-cursor></a-cursor>
+        </a-entity>
+    </a-scene>
+</body>
+
+</html>

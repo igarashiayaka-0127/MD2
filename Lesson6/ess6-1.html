@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <title>CSV 3D Visualization</title>
+</head>
+
+<body>
+    <input type="file" id="csvFile" accept=".csv">
+</body>
+
+</html>
+
+    
+<script>
+    // ファイル選択時の処理
+    document.getElementById('csvFile').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const text = e.target.result;
+                console.log("ファイルの内容:", text);
+            };
+
+            reader.readAsText(file);
+        }
+    });
+
+
+    function parseCSV(text) {
+    // 改行で分割して各行を取得
+    const lines = text.split('\n');
+
+    // 空の配列を用意
+    const data = [];
+
+    // 2行目から処理（1行目はヘッダー）
+    for (let i = 1; i < lines.length; i++) {
+        // 空行はスキップ
+        if (lines[i].trim() === '') continue;
+
+        // カンマで分割
+        const values = lines[i].split(',');
+
+        // オブジェクトを作成
+        const item = {
+            name: values[0],
+            value: parseFloat(values[1]),
+            lat: parseFloat(values[2]),
+            lon: parseFloat(values[3])
+        };
+
+        // 配列に追加
+        data.push(item);
+    }
+
+    return data;
+    }
+
+
+    // CSVファイルを処理する一連の関数
+
+    // 1. CSVを配列に変換する関数
+    function csvToArray(csvText) {
+        const lines = csvText.split('\n');// 列ごとに分割
+        const result = [];// 空の箱
+
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].trim() !== '') {
+                result.push(lines[i].split(','));
+            }
+        }
+
+        return result;
+    }
+
+    // 2. CSVデータを表示する関数
+    function displayCSVData(csvArray) {
+        csvArray.forEach(function(row, index) {
+            console.log("行" + index + ":", row);
+        });
+    }
+
+    // 3. メイン処理
+    function setupCSVReader() {
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const csvText = e.target.result;
+                    const csvArray = csvToArray(csvText);
+                    displayCSVData(csvArray);
+                };
+
+                reader.readAsText(file);
+            }
+        });
+    }
+
+    // 実行
+    setupCSVReader();
+
+</script>
+
+

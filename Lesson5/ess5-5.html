@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <!-- JavaScriptで100個のa-boxを追加 -->
+        <script>
+            // a-sceneの要素を取得
+            // documentとはHTML文書全体を表すオブジェクト
+            // querySelectorメソッドは指定したセレクタに一致する最初の要素を返す
+            const scene = document.querySelector('a-scene');
+
+            for (let i = 0; i < 100; i++) {// forで繰り返し
+                // ↑条件には括弧つける
+                // a-box要素を作成
+                // createElementメソッドは新しい要素を作成する
+                const box = document.createElement('a-box');
+                // position属性を設定
+                // iを使って位置をずらす
+                box.setAttribute('position', `${(i * 2)} ${(i * 2)} 0`);
+                // y軸にも同じだけ増やせば斜めに！！
+
+                // iをつかって色を徐々に変える
+                // 色は赤から青に変化
+                const red = Math.max(0, 255 - i * 2);
+                const blue = Math.min(255, i * 2);
+                box.setAttribute('color', `rgb(${red}, 0, ${blue})`);
+
+                // appendChildメソッドは指定した要素を親要素の子要素として追加する
+                // a-sceneの子要素としてa-boxを追加
+                scene.appendChild(box);
+            }
+        </script>
+        <a-camera position="0 0 0"></a-camera>
+    </a-scene>
+</body>
+
+</html>

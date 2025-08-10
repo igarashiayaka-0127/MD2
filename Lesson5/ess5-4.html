@@ -1,0 +1,45 @@
+<script>
+let score = 85;
+
+if (score>=60){
+    console.log("合格");
+} else {
+    console.log("不合格");
+}
+
+for(let i = 0; i < 5; i++) {
+    console.log("hello");
+}
+
+
+// if-else文
+if (score >= 90) {
+    console.log("優");
+} else if (score >= 70) {
+    console.log("良");
+} else if (score >= 50) {
+    console.log("可");
+} else {
+    console.log("不可");
+}
+
+// 三項演算子
+let result = (score >= 60) ? "合格" : "不合格";
+console.log(result);
+
+// switch文
+let day = 3;
+switch (day) {
+    case 1:
+        console.log("月曜日");
+        break;
+    case 2:
+        console.log("火曜日");
+        break;
+    case 3:
+        console.log("水曜日");
+        break;
+    default:
+        console.log("その他の日");
+}
+</script>

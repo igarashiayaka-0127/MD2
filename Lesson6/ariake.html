@@ -1,0 +1,57 @@
+<!-- A-Frame1.7.0 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <meta charset="UTF-8">
+    <title>MD2 No06 Ariake</title>
+</head>
+<body>
+    <a-scene>
+        <!-- 空と地面 -->
+        <a-sky color="#87CEEB" radius="5000"></a-sky>             
+  
+        <!-- 同じディレクトリの中にある、ディレクトリ名がopで終わるディレクトリの中にある .gltfファイルをすべて読み込む。位置をずらしながら -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const scene = document.querySelector('a-scene');
+                const models = [
+                    '53393652_bldg_6697_op',
+                    '53393652_brid_6697_op',
+                    '53393653_bldg_6697_op',
+                    '53393653_brid_6697_op',
+                    '53393663_bldg_6697_op',
+                    '53393663_brid_6697_op',
+                    '533936_dem_6697_op',
+                ];
+                
+                // グリッド配置（4x3）
+                const cols = 4;
+                const spacing = 0; // モデル間の間隔
+                
+                models.forEach((model, index) => {
+                    const entity = document.createElement('a-entity');
+                    entity.setAttribute('gltf-model', `${model}/${model}.gltf`);
+                    
+                    // グリッド状に配置
+                    const row = Math.floor(index / cols);
+                    const col = index % cols;
+                    const x = (col - cols/2 + 0.5) * spacing;
+                    const z = (row - 1) * spacing;
+                    
+                    entity.setAttribute('position', `${x} 0 ${z}`);
+                    entity.setAttribute('rotation', '0 180 0');
+                    entity.setAttribute('scale', '1 1 1');
+                    scene.appendChild(entity);
+                });
+            });
+        </script>
+
+        <a-cylinder position="0 -0.5 0" radius="5" height="100" color="#FF0000"></a-cylinder>
+
+        <a-entity camera look-controls wasd-controls="acceleration: 2000; fly: true; flySpeed: 1000;" position="0 500 0">
+            <a-cursor></a-cursor>
+        </a-entity>
+    </a-scene>  
+</body>
+</html>
